@@ -1,4 +1,4 @@
-[![CI](https://github.com/marviflame/devops-intern-final/actions/workflows/ci.yml/badge.svg)](https://github.com/marviflame/devops-intern-final/actions/workflows/ci.yml)
+[![CI](https://github.com/marviflame/devops-intern-final/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/marviflame/devops-intern-final/actions/workflows/ci.yml)
 
 ## Devops-Intern-Final
 This is the DevOps Intern Final Project
