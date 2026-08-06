@@ -110,6 +110,12 @@ docker run hello-devops
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/c0a24710e1975547ecc99ed2e1627e5f6bda283f/docker_image2.png)
 
 
+It can also be accessed from the virtual machine's public ip-address
+
+
+![image alt](https://github.com/marviflame/devops-intern-final/blob/e368980dd9cdf6813baf865beb6d5b3e1fa19f0d/docker_container.png)
+
+
 # Project Step Four
 
 A GitHub Actions workflow that runs python hello.py automatically on every push was created. You can take a took at the workflow on this repo.
