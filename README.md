@@ -103,20 +103,21 @@ docker images | grep hello-devops
 ```bash
 docker run hello-devops
 ```
-![image alt](https://github.com/marviflame/devops-intern-final/blob/28a1d5292b556a55e16e13feafed41a12e26485e/Screenshot%202026-08-04%20121202.png)
+
+![image alt](https://github.com/marviflame/devops-intern-final/blob/fa154f827c602f28136303760b033eac148a1139/Screenshot%202026-08-04%20121202.png)
 
 
 ## Step Four
 
 Nomad can be used to run the Dockerized app as a background service job.
 
-1. Build the Docker image from the repo root file:
+1. Docker image was built from the repo root file:
 
 ```bash
 docker build -t hello-devops .
 ```
 
-2. Run the Nomad job from the `nomad/` directory:
+2. Nomad job was ran from the `nomad/` directory:
 
 ```bash
 cd nomad
