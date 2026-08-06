@@ -98,6 +98,8 @@ docker build -t hello-devops .
 ```bash
 docker images | grep hello-devops
 ```
+![image alt](https://github.com/marviflame/devops-intern-final/blob/bc1ebb11ac7e9d5a59df8b9a47bcf54a61f357f0/docker.png)
+
 
 #### 3. Run the container
 ```bash
