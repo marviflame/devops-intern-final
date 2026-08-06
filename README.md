@@ -1,5 +1,8 @@
 [![CI](https://github.com/marviflame/devops-intern-final/actions/workflows/ci.yml/badge.svg?branch=main&event=push)](https://github.com/marviflame/devops-intern-final/actions/workflows/ci.yml)
 
+
+# Project Step One
+
 ## Devops-Intern-Final
 This is the DevOps Intern Final Project
 Name: Marvelous Olaoluwa
@@ -24,8 +27,6 @@ To build a DevOps workflow using open-source tools with the like of the followin
 Each step will produced a real, usable output for the next, simulating a small but realistic DevOps pipeline. 
 
 
-## Step One
-
 A simple Python script to print "Hello, DevOps!" was created
 ```python   
 print("Hello, DevOps!")
@@ -48,7 +49,7 @@ chmod u+x hello.py
 ./hello.py
 ```
 
-## Step Two 
+# Project Step Two 
 
 A folder scripts/. was created using this command:
 
@@ -72,7 +73,7 @@ chmod u+x scripts/sysinfo.sh
 ./scripts/sysinfo.sh
 ```
 
-## Step Three
+# Project Step Three
 
 Dockerfile was prepared to containerize the hello.py script.
 
