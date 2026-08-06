@@ -1,6 +1,6 @@
-job "hello-devops" {
+job "hello-devops-service" {
   datacenters = ["dc1"]
-  type        = "batch"
+  type        = "service"
 
   group "hello" {
     count = 1
@@ -10,8 +10,6 @@ job "hello-devops" {
 
       config {
         image = "hello-devops:latest"
-        command = "python"
-        args = ["hello.py"]
       }
 
       resources {
@@ -20,8 +18,10 @@ job "hello-devops" {
       }
 
       restart {
-        attempts = 0
-        mode     = "fail"
+        attempts = 3
+        interval = "10m"
+        delay    = "15s"
+        mode     = "delay"
       }
     }
   }

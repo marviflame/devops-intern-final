@@ -143,6 +143,7 @@ docker build -t hello-devops .
 cd nomad
 nomad job run hello.nomad
 ```
+![image alt]
 
 This uses the job definition in `nomad/hello.nomad` with a minimal `service` workload and low CPU/memory settings.
 
@@ -150,6 +151,50 @@ There a nomad manifest in this repo that setup the nomad service in connection t
 
 
 # Project Step Six
+
+## Run the app with Nomad
+
+Docker image that was built from the repo root:
+
+```bash
+docker build -t hello-devops:latest .
+```
+
+Then we start and run the Nomad job from the `nomad/` directory:
+
+```bash
+cd nomad
+nomad agent -dev
+nomad job run hello.nomad
+```
+
+
+
+This launches the Dockerized app as a Nomad service with minimal CPU and memory settings.
+
+## Monitoring with Grafana Loki
+
+A simple local Loki setup was added in [monitoring/loki_setup.txt](monitoring/loki_setup.txt).
+
+### Start Loki
+
+```bash
+docker run -d --name loki -p 3100:3100 grafana/loki:2.9.2 --config.file=/etc/loki/local-config.yaml
+```
+
+### View container logs
+
+```bash
+docker logs hello-devsecops
+```
+
+### Check Loki readiness
+
+```bash
+curl http://127.0.0.1:3100/ready
+```
+
+A screenshot is optional, but the setup file contains the commands and basic forwarding notes.
 
 
 
