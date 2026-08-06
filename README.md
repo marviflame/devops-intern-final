@@ -143,7 +143,7 @@ docker build -t hello-devops .
 cd nomad
 nomad job run hello.nomad
 ```
-![image alt]
+![image alt](https://github.com/marviflame/devops-intern-final/blob/955aaccb777c642caeb06fc75bc4e841dc6c4474/nomad.png)
 
 This uses the job definition in `nomad/hello.nomad` with a minimal `service` workload and low CPU/memory settings.
 
