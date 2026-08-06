@@ -98,7 +98,7 @@ docker build -t hello-devops .
 ```bash
 docker images | grep hello-devops
 ```
-![image alt]()
+![image alt](https://github.com/marviflame/devops-intern-final/blob/c0a24710e1975547ecc99ed2e1627e5f6bda283f/docker_image1.png)
 
 
 #### 3. Run the container
@@ -106,7 +106,7 @@ docker images | grep hello-devops
 docker run hello-devops
 ```
 
-![image alt]()
+![image alt](https://github.com/marviflame/devops-intern-final/blob/c0a24710e1975547ecc99ed2e1627e5f6bda283f/docker_image2.png)
 
 
 ## Step Four
