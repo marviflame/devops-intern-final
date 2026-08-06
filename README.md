@@ -110,7 +110,16 @@ docker run hello-devops
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/c0a24710e1975547ecc99ed2e1627e5f6bda283f/docker_image2.png)
 
 
-## Step Four
+# Project Step Four
+
+A GitHub Actions workflow that runs python hello.py automatically on every push was created. You can take a took at the workflow on this repo.
+
+Plus a status batch that was attached to this README file
+
+![image alt](https://github.com/marviflame/devops-intern-final/blob/ea3befcbf98f6539f9635af721988f4f1580c4c5/readme_pic.png)
+
+
+# Project Step Five
 
 Nomad can be used to run the Dockerized app as a background service job.
 
@@ -128,5 +137,12 @@ nomad job run hello.nomad
 ```
 
 This uses the job definition in `nomad/hello.nomad` with a minimal `service` workload and low CPU/memory settings.
+
+There a nomad manifest in this repo that setup the nomad service in connection to docker container.
+
+
+# Project Step Six
+
+
 
 
