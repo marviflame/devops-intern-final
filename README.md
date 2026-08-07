@@ -198,7 +198,8 @@ docker ps # for running containers
 
 
 docker logs promtail #for promtail logs
-curl http://54.167.81.208:3100/ready #for Loki readiness
+click http://54.167.81.208:3100/ready  for Loki readiness
+
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/monitoring/loki-readiness.png)
 
 
