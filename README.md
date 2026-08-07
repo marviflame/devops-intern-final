@@ -159,8 +159,9 @@ I created a Docker network using this command
 ```bash 
 docker network create loki-net
 ```
-I started Loki with its config mounted into the container using this command
 
+
+I started Loki with its config mounted into the container using this command
 ```bash
 docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:latest -config.file=/etc/loki/local-config.yaml
 ```
@@ -168,15 +169,18 @@ docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.y
 I configured Loki with port 3100, a local config file, a basic filesystem storage under /tmp/loki
 The config file that was used can be found inside this repo monitoring/loki-config.yml
 
-Then I had to use Promtail
+
+Then I use Promtail
+
 
 I started Promtail in the same Docker network with the following command
-
 ```bash
 docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:latest -config.file=/etc/promtail/promtail.yaml
 ```
 
 The Promtail config in promtail-config.yml was set to read Docker container JSON logs, scrape them from /var/lib/docker/containers//.log forward them to Loki
+
+
 
 Here is a Loki API ready to collect logs
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/monitoring/loki-api.png)
@@ -184,12 +188,14 @@ Here is a Loki API ready to collect logs
 
 I used these commands used to view logs
 
+
+
 docker ps # for running containers
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/cli.png)
 
 
-docker logs promtail #for promtail logs
 
+docker logs promtail #for promtail logs
 curl http://54.167.81.208:3100/ready #for Loki readiness
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/monitoring/loki-readiness.png)
 
