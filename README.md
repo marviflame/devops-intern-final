@@ -194,8 +194,6 @@ docker logs hello-devsecops
 curl http://127.0.0.1:3100/ready
 ```
 
-A screenshot is optional, but the setup file contains the commands and basic forwarding notes.
-
 
 
 
