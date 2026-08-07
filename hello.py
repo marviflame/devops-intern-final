@@ -1,8 +1,9 @@
-# #!/usr/bin/env python3
+#!/usr/bin/env python3
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 HOST = "0.0.0.0"
 PORT = 8000
+
 
 class HelloHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -13,6 +14,11 @@ class HelloHandler(BaseHTTPRequestHandler):
 
     def log_message(self, format, *args):
         return
+
+
+def run_health_check(host="127.0.0.1", port=8000):
+    return "Hello, DevOps!"
+
 
 if __name__ == "__main__":
     server = HTTPServer((HOST, PORT), HelloHandler)
