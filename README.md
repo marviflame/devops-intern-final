@@ -152,47 +152,42 @@ There a nomad manifest in this repo that setup the nomad service in connection t
 
 # Project Step Six
 
-## Run the app with Nomad
-
-Docker image that was built from the repo root:
-
-```bash
-docker build -t hello-devops:latest .
-```
-
-Then we start and run the Nomad job from the `nomad/` directory:
-
-```bash
-cd nomad
-nomad agent -dev
-nomad job run hello.nomad
-```
-
-
-
-This launches the Dockerized app as a Nomad service with minimal CPU and memory settings.
 
 ## Monitoring with Grafana Loki
 
-A simple local Loki setup was added in [monitoring/loki_setup.txt](monitoring/loki_setup.txt).
-
-### Start Loki
+I created a Docker network using this command
+```bash 
+docker network create loki-net
+```
+I started Loki with its config mounted into the container using this command
 
 ```bash
-docker run -d --name loki -p 3100:3100 grafana/loki:2.9.2 --config.file=/etc/loki/local-config.yaml
+docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:latest -config.file=/etc/loki/local-config.yaml
 ```
 
-### View container logs
+I configured Loki with port 3100, a local config file, a basic filesystem storage under /tmp/loki
+The config file that was used can be found inside this repo monitoring/loki-config.yml
+
+Then I had to use Promtail
+
+I started Promtail in the same Docker network with the following command
 
 ```bash
-docker logs hello-devsecops
+docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:latest -config.file=/etc/promtail/promtail.yaml
 ```
 
-### Check Loki readiness
+The Promtail config in promtail-config.yml was set to read Docker container JSON logs, scrape them from /var/lib/docker/containers//.log forward them to Loki at: http://loki:3100/loki/api/v1/push
 
-```bash
-curl http://127.0.0.1:3100/ready
-```
+I used these commands used to view logs
+
+
+docker ps #for running containers
+
+docker logs promtail #for promtail logs
+
+curl http://localhost:3100/ready #for Loki readiness
+
+
 
 
 
