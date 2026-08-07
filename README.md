@@ -183,6 +183,7 @@ The Promtail config in promtail-config.yml was set to read Docker container JSON
 
 
 Here is a Loki API ready to collect logs
+
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/monitoring/loki-api.png)
 
 
@@ -191,6 +192,7 @@ I used these commands used to view logs
 
 
 docker ps # for running containers
+
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/cli.png)
 
 
