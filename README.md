@@ -153,7 +153,7 @@ There a nomad manifest in this repo that setup the nomad service in connection t
 # Project Step Six
 
 
-## Monitoring with Grafana Loki
+## Monitoring with Grafana Loki Locally
 
 I created a Docker network using this command
 ```bash 
@@ -176,16 +176,22 @@ I started Promtail in the same Docker network with the following command
 docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:latest -config.file=/etc/promtail/promtail.yaml
 ```
 
-The Promtail config in promtail-config.yml was set to read Docker container JSON logs, scrape them from /var/lib/docker/containers//.log forward them to Loki at: http://loki:3100/loki/api/v1/push
+The Promtail config in promtail-config.yml was set to read Docker container JSON logs, scrape them from /var/lib/docker/containers//.log forward them to Loki
+
+Here is a Loki API ready to collect logs
+![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/monitoring/loki-api.png)
+
 
 I used these commands used to view logs
 
+docker ps # for running containers
+![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/cli.png)
 
-docker ps #for running containers
 
 docker logs promtail #for promtail logs
 
-curl http://localhost:3100/ready #for Loki readiness
+curl http://54.167.81.208/:3100/ready #for Loki readiness
+![image alt](https://github.com/marviflame/devops-intern-final/blob/dc1949537d7a7894ed662d5e55408cfcdc26268a/monitoring/loki-readiness.png)
 
 
 
