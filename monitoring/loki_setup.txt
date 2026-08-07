@@ -1,0 +1,41 @@
+How I started Loki
+
+I created a Docker network with the command
+"docker network create loki-net"
+
+I started Loki with its config mounted into the container:
+
+docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:latest -config.file=/etc/loki/local-config.yaml
+
+What I configured
+
+Loki was configured with:
+1. port 3100
+2. a local config file
+3. basic filesystem storage under /tmp/loki
+
+The config file I used was:
+
+DevOps-Intern/monitoring/loki-config.yml
+
+
+How simple log forwarding was added
+
+I started Promtail in the same Docker network:
+docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:latest -config.file=/etc/promtail/promtail.yaml
+
+The Promtail config in promtail-config.yml was set to:
+
+1. read Docker container JSON logs
+2. scrape them from /var/lib/docker/containers//.log
+3. forward them to Loki
+
+Commands used to view logs
+
+Check running containers:
+
+docker ps
+
+Check Promtail logs:  docker logs promtail
+
+Check Loki readiness:  curl http://54.167.81.208/:3100/ready
