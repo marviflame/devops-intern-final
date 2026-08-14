@@ -5,7 +5,7 @@ I created a Docker network with the command
 
 I started Loki with its config mounted into the container:
 
-docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:latest -config.file=/etc/loki/local-config.yaml
+docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:2.9.6 -config.file=/etc/loki/local-config.yaml
 
 What I configured
 
@@ -22,7 +22,7 @@ DevOps-Intern/monitoring/loki-config.yml
 How simple log forwarding was added
 
 I started Promtail in the same Docker network:
-docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:latest -config.file=/etc/promtail/promtail.yaml
+docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:2.9.6 -config.file=/etc/promtail/promtail.yaml
 
 The Promtail config in promtail-config.yml was set to:
 

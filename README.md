@@ -129,12 +129,14 @@ Plus a status batch that was attached to this README file
 
 # Project Step Five
 
-Nomad can be used to run the Dockerized app as a background service job.
+Nomad can be used to run the Dockerized app as a background service job. In this project, the Nomad job spec in [nomad/hello.nomad](nomad/hello.nomad) declares a single service group called `hello` with one Docker task. The task uses the Docker driver and runs the container image `hello-devops:1.0`, which means the container is not pulled as a floating `latest` tag and will behave consistently across redeploys.
+
+The job spec does three important things: it tells Nomad to run one replica of the app, it defines the Docker runtime for that container, and it sets a restart policy so the container is restarted if it crashes. This is useful because the app itself is very simple: it just prints a message and exits, so the service is intentionally lightweight. The resource block limits the task to `100` CPU units and `128` MB of memory because the workload does almost no processing and does not need a large footprint; choosing a modest limit keeps the host efficient while leaving enough headroom for other services.
 
 1. Docker image was built from the repo root file:
 
 ```bash
-docker build -t hello-devops .
+docker build -t hello-devops:1.0 .
 ```
 
 2. Nomad job was ran from the `nomad/` directory:
@@ -145,7 +147,7 @@ nomad job run hello.nomad
 ```
 ![image alt](https://github.com/marviflame/devops-intern-final/blob/955aaccb777c642caeb06fc75bc4e841dc6c4474/nomad.png)
 
-This uses the job definition in `nomad/hello.nomad` with a minimal `service` workload and low CPU/memory settings.
+This setup is related to the Loki flow I ran separately with Docker because both patterns are about running containers as services and connecting them through a shared network. In the standalone Docker setup, I started Loki and Promtail with `docker run` commands and connected them on a Docker network so Promtail could forward container logs to Loki. In Nomad, the same idea is expressed in a declarative job file: the app is a containerized service, and the resource and restart rules replace the manual `docker run` steps with an orchestrator that can manage lifecycle, restart behavior, and scaling more predictably.
 
 There a nomad manifest in this repo that setup the nomad service in connection to docker container.
 
@@ -163,7 +165,7 @@ docker network create loki-net
 
 I started Loki with its config mounted into the container using this command
 ```bash
-docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:latest -config.file=/etc/loki/local-config.yaml
+docker run -d --name loki --network loki-net -p 3100:3100 -v "$PWD/loki-config.yml:/etc/loki/local-config.yaml" grafana/loki:2.9.6 -config.file=/etc/loki/local-config.yaml
 ```
 
 I configured Loki with port 3100, a local config file, a basic filesystem storage under /tmp/loki
@@ -175,7 +177,7 @@ Then I use Promtail
 
 I started Promtail in the same Docker network with the following command
 ```bash
-docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:latest -config.file=/etc/promtail/promtail.yaml
+docker run -d --name promtail --network loki-net -v "$PWD/promtail-config.yml:/etc/promtail/promtail.yaml" -v /var/lib/docker/containers:/var/lib/docker/containers:ro grafana/promtail:2.9.6 -config.file=/etc/promtail/promtail.yaml
 ```
 
 The Promtail config in promtail-config.yml was set to read Docker container JSON logs, scrape them from /var/lib/docker/containers//.log forward them to Loki
